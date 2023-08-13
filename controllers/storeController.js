@@ -1,23 +1,18 @@
-const getItems = (req, res) => {
-    
-}
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
 
-const getItemById = (req, res) => {
-    
-}
+const getItems = async (req, res) => {
+  return await prisma.storeItem.findMany().then((res) => res.json());
+};
 
-const createPost = (req, res) => {
-    
-}
+const getItemById = async (req, res) => {
+ 
+};
 
-const updateItem = (req, res) => {
-    
-}
+const createPost = (req, res) => {};
 
-const deleteItem = (req, res) => {
-    
-}
+const updateItem = (req, res) => {};
 
-const searchForItems = (req, res) => {
-    
-}
+const deleteItem = (req, res) => {};
+
+const searchForItems = (req, res) => {};
