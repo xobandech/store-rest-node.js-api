@@ -11,8 +11,28 @@ const getItemById = async (req, res) => {
     .findUnique({ where: { id: id } })
     .then((res) => res.json());
 };
-
-const createPost = (req, res) => {};
+const createItem = async (req, res) => {
+    const { title, price, description, categoryId } = req.body;
+  
+    try {
+      const newItem = await prisma.storeItem.create({
+        data: {
+          title,
+          description,
+          price,
+          category: { connect: { id: categoryId } }
+        },
+      });
+  
+      res.status(201).json(newItem);
+    } catch (error) {
+      console.error('Error creating item:', error);
+      res.status(500).json({ error: 'An error occurred while creating the item.' });
+    }
+  };
+  
+  module.exports = { createItem };
+  
 
 const updateItem = (req, res) => {};
 
