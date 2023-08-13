@@ -6,7 +6,10 @@ const getItems = async (req, res) => {
 };
 
 const getItemById = async (req, res) => {
- 
+  const { id } = req.params;
+  return await prisma.storeItem
+    .findUnique({ where: { id: id } })
+    .then((res) => res.json());
 };
 
 const createPost = (req, res) => {};
