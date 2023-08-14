@@ -10,8 +10,11 @@ const {
   updateItem,
 } = require("../controllers/storeController.js");
 
+router.get("/api/v1/products/search", searchForItems)
+
 router.route("/api/v1/products").get(getItems).post(createItem);
 
 router.route("/api/v1/products/:id").get(getItemById).delete(deleteItem).put(updateItem);
+
 
 module.exports = router
