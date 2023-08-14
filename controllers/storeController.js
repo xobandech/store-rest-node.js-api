@@ -83,8 +83,25 @@ const deleteItem = async (req, res) => {
 };
 
 const searchForItems = async (req, res) => {
-  const { query } = req.body
-  await prisma.storeItem.findMany({where: {title: query}})
+  const { query } = req.body;
+  console.log(req.body);
+  try {
+    const items = await prisma.storeItem.findMany({
+      where: {
+        OR: [
+          { title: { contains: query, mode: "insensitive" } },
+          { description: { contains: query, mode: "insensitive" } },
+        ],
+      },
+    });
+
+    res.status(200).json(items);
+  } catch (error) {
+    console.error("Error searching for items:", error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while searching for items." });
+  }
 };
 
 module.exports = {
