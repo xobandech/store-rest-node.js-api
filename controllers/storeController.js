@@ -72,7 +72,7 @@ const updateItem = async (req, res) => {
 const deleteItem = async (req, res) => {
   const { id } = req.params;
   try {
-    const deletedItem = await prisma.storeItem.delete({ where: { id } });
+    const deletedItem = await prisma.storeItem.delete({ where: { id: +id } });
     res.status(200).json(deletedItem);
   } catch (e) {
     console.error("Error deleting items", e);
@@ -82,7 +82,10 @@ const deleteItem = async (req, res) => {
   }
 };
 
-const searchForItems = async (req, res) => {};
+const searchForItems = async (req, res) => {
+  const { query } = req.body
+  await prisma.storeItem.findMany({where: {title: query}})
+};
 
 module.exports = {
   getItemById,
