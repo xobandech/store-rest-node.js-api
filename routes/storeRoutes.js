@@ -1,7 +1,17 @@
-const express = require('express')
+const express = require("express");
 
-const router = express.Router()
+const router = express.Router();
+const {
+  getItemById,
+  createItem,
+  deleteItem,
+  getItems,
+  searchForItems,
+  updateItem,
+} = require("../controllers/storeController.js");
 
-router.route("/api/v1/products").get().post()
+router.route("/api/v1/products").get(getItems).post(createItem);
 
-router.route("/api/v1/products/:id")
+router.route("/api/v1/products/:id").get(getItemById).delete(deleteItem).put(updateItem);
+
+module.exports = router
